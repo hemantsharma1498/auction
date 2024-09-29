@@ -1,6 +1,6 @@
 // src/config.js
 const config = {
-    API_BASE_URL: process.env.REACT_APP_API_BASE_URL
+    apiUrl: process.env.REACT_APP_AUCTION_HOST
 };
 
 export default config;

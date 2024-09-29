@@ -32,13 +32,13 @@ func (pg *PostgresDb) Connect() (store.Storage, error) {
 }
 
 func initDb() (*sql.DB, error) {
-	dbHost := os.Getenv("RDS_HOST")
-	dbPort := os.Getenv("RDS_PORT")
-	dbUser := os.Getenv("RDS_USER")
-	dbPassword := os.Getenv("RDS_PASSWORD")
-	dbName := os.Getenv("RDS_NAME")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
 
-	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=require",
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {

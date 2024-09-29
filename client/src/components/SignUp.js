@@ -21,7 +21,8 @@ function SignUp({ setIsLoggedIn }) {
             return;
         }
 
-        const response = await fetch(`https://Auction-postship-env.eba-pzad7jme.us-east-1.elasticbeanstalk.com/api/sign-up`, {
+        console.log(`${config.apiUrl}/api/sign-up`)
+        const response = await fetch(`${config.apiUrl}/api/sign-up`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, mobile, password }),

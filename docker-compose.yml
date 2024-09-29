@@ -1,0 +1,56 @@
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_AUCTION_HOST=${REACT_APP_AUCTION_HOST}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    env_file:
+      - ./client/.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=0
+      - AUCTION_HOST=http://localhost:3000
+    stdin_open: true
+    command: npm start
+    networks:
+      - auction-network
+
+  server:
+    build:
+      context: ./auc-server
+      dockerfile: Dockerfile
+    ports:
+      - "3100:3100"
+    env_file:
+      - ./auc-server/.env
+    depends_on:
+      - db 
+    networks:
+      - auction-network
+
+  db:
+    image: postgres:14
+    container_name: auction_pg
+    environment:
+      - POSTGRES_USER=auction_user
+      - POSTGRES_PASSWORD=auction_pass
+      - POSTGRES_DB=auction_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - auction-network
+
+networks:
+  auction-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

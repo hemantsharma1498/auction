@@ -10,7 +10,7 @@ import (
 )
 
 // Define your JWT secret key (should be kept secure and not hardcoded)
-var JwtSecret = []byte(os.Getenv("JwtSecret"))
+var JwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
 // Claims struct that will be encoded in the JWT token
 type Claims struct {

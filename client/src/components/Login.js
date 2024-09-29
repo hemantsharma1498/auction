@@ -12,8 +12,9 @@ function Login({ setIsLoggedIn }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        console.log(`${config.apiUrl}/api/login`)
 
-        const response = await fetch(`https://Auction-postship-env.eba-pzad7jme.us-east-1.elasticbeanstalk.com/api/login`, {
+        const response = await fetch(`${config.apiUrl}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
