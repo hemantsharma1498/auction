@@ -15,7 +15,6 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - WDS_SOCKET_PORT=0
-      - AUCTION_HOST=http://localhost:3000
     stdin_open: true
     command: npm start
     networks:

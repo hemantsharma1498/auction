@@ -11,7 +11,7 @@ type Storage interface {
 	GetAllTickets(int, int) ([]*models.Ticket, error)
 	GetTicketById(int) (*models.Ticket, error)
 	GetTicketsByUserId(int) ([]*models.Ticket, error)
-	AddNewBid(int, int, int, int) (int, error)
+	AddNewBid(int, int, int, int, int, string) (int, error)
 	GetUserBids(int) ([]*models.Bid, error)
 }
 

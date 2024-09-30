@@ -30,7 +30,7 @@ type UpdatePasswordReq struct {
 
 type AddTicketReq struct {
 	EventDate       string `json:"eventDate"`
-	Venue           string `json:"Venue"`
+	Venue           string `json:"venue"`
 	NumberOfTickets int    `json:"numberOfTickets"`
 	Price           int    `json:"price"`
 	SeatInfo        []Seat `json:"seatInfo"`
@@ -60,7 +60,7 @@ type Ticket struct {
 	TicketID        int    `json:"ticketId"`
 	EventDate       string `json:"eventDate"`
 	UserID          int    `json:"userId"`
-	Venue           string `json:"Venue"`
+	Venue           string `json:"venue"`
 	NumberOfTickets int    `json:"numberOfTickets"`
 	Price           int    `json:"price"`
 	HighestBid      int    `json:"highestBid"`
@@ -70,9 +70,11 @@ type Ticket struct {
 }
 
 type AddNewBidReq struct {
-	TicketID int `json:"ticketId"`
-	OwnerID  int `json:"userId"`
-	BidPrice int `json:"bidPrice"`
+	TicketID      int    `json:"ticketId"`
+	OwnerID       int    `json:"userId"`
+	BidPrice      int    `json:"bidPrice"`
+	OriginalPrice int    `json:"originalPrice"`
+	Venue         string `json:"venue"`
 }
 type AddNewBidRes struct {
 	BidID int `json:"bidId"`

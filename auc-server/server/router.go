@@ -80,6 +80,7 @@ func withCORS(handler http.Handler) http.HandlerFunc {
 		allowedOrigins := []string{
 			//	"https://main.d3to1cludkqj3l.amplifyapp.com",
 			"http://localhost:3000",
+			"https://main.d3to1cludkqj3l.amplifyapp.com/",
 		}
 
 		// Check if the request origin is in the list of allowed origins

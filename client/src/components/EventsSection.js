@@ -128,9 +128,11 @@ function EventsSection({ isLoggedIn }) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    ticketId: selectedTicket.id,
+                    ticketId: selectedTicket.ticketId,
                     userId: parseInt(userId),
                     bidPrice: parseFloat(bidAmount),
+                    originalPrice: parseFloat(selectedTicket.price),
+                    venue: selectedTicket.venue
                 }),
             });
 
@@ -139,6 +141,7 @@ function EventsSection({ isLoggedIn }) {
             }
 
             alert('Bid successfully placed!');
+            selectedTicket.highestBid = bidAmount
             closeModal(); // Close the modal after placing the bid
         } catch (error) {
             console.error('Error placing bid:', error);
@@ -150,6 +153,7 @@ function EventsSection({ isLoggedIn }) {
         const commonContent = (
             <>
                 <h3>Coldplay Music of The Spheres World Tour</h3>
+                <p><strong>Venue:</strong> {ticket.venue}</p>
                 <p><strong>Date:</strong> {new Date(ticket.eventDate).toLocaleDateString()}</p>
                 <p><strong>Price:</strong> ₹{ticket.price}</p>
                 <p><strong>Seats:</strong> {ticket.seatInfo.map(seat => `#${seat.seatNumber} (Block: ${seat.block}, Level: ${seat.level})`).join(', ')}</p>
@@ -240,6 +244,7 @@ function EventsSection({ isLoggedIn }) {
                 <Modal closeModal={closeModal}>
                     <h2>Ticket Details</h2>
                     <p><strong>Date:</strong> {new Date(selectedTicket.eventDate).toLocaleDateString()}</p>
+                    <p><strong>Venue:</strong> {selectedTicket.venue}</p>
                     <p><strong>Price:</strong> ₹{selectedTicket.price}</p>
                     <p><strong>Seats:</strong> {selectedTicket.seatInfo.map(seat => `#${seat.seatNumber} (Block: ${seat.block}, Level: ${seat.level})`).join(', ')}</p>
                     <p><strong>Highest Bid:</strong> ₹{selectedTicket.highestBid}</p>

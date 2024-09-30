@@ -14,7 +14,7 @@ func (s *Server) AddNewBid(w http.ResponseWriter, r *http.Request) {
 	}
 
 	userId := r.Context().Value("UserID").(int)
-	bidId, err := s.store.AddNewBid(d.BidPrice, d.OwnerID, d.TicketID, userId)
+	bidId, err := s.store.AddNewBid(d.OriginalPrice, d.BidPrice, d.OwnerID, d.TicketID, userId, d.Venue)
 	if err != nil {
 		utils.WriteResponse(w, err, "Encountered an error. Please try again later", http.StatusInternalServerError)
 		return
