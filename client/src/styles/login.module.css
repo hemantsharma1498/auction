@@ -1,0 +1,20 @@
+/* pages/login.module.css */
+.loginPage {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.formRow {
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: #666;
+}
