@@ -6,8 +6,15 @@ type LoginReq struct {
 }
 
 type LoginRes struct {
+	User  *User  `json:"user"`
+	Token string `json:"token"`
+}
+
+type User struct {
 	UserID int    `json:"userId"`
-	Token  string `json:"token"`
+	Name   string `json:"name"`
+	Email  string `json:"email"`
+	Mobile string `json:"mobile"`
 }
 
 type SignUpReq struct {

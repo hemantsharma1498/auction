@@ -40,7 +40,7 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := &LoginRes{UserID: users[0].UserID, Token: token}
+	res := &LoginRes{User: &User{UserID: users[0].UserID, Name: users[0].Name, Email: users[0].Email, Mobile: users[0].Mobile}, Token: token}
 	utils.WriteResponse(w, nil, res, http.StatusOK)
 
 }
