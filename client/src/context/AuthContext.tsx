@@ -5,13 +5,14 @@ interface UserDataType {
     userId: number;
     name: string;
     email: string;
-    phoneNumber: string;
+    mobile: string;
 }
 
 interface AuthContextType {
     user: UserDataType | null;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
+    signUp: (name: string, email: string, mobile: string, password: string) => Promise<void>;
     isAuthenticated: boolean;
     jwtToken?: string;
 }
@@ -25,6 +26,20 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<UserDataType | null>(null);
     const [jwtToken, setJwtToken] = useState<string | undefined>(undefined);
+
+    const signUp = async (name: string, email: string, mobile: string, password: string): Promise<void> => {
+        try {
+            const res = await axiosInstance.post('api/sign-up', { name, email, mobile, password });
+            const userData: UserDataType = res.data.user;
+            const token: string = res.data.token;
+            setUser(userData);
+            setJwtToken(token);
+            localStorage.setItem('jwtToken', token);
+        } catch (e) {
+            console.error("Error while making sign-up API call", e);
+            throw e;
+        }
+    };
 
     const login = async (email: string, password: string): Promise<void> => {
         try {
@@ -52,6 +67,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         user,
         login,
         logout,
+        signUp,
         isAuthenticated,
         jwtToken,
     };

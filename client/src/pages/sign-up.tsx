@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const SignUpPage = () => {
+    //Data validation
     const [password, setPassword] = useState('');
     const [confirmPassword, setconfirmPassword] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -13,12 +14,26 @@ const SignUpPage = () => {
     const [isMobileNumberValid, setIsMobileNumberValid] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(false);
 
+    //Api validation
+    const [loading, setLoading] = useState(false);
+
+
+    const res = async () => {
+
+    }
+
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const mobileRegex = /^(\+91|0)?[6-9]\d{9}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const handleMobileNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMobileNumber(e.target.value)
         setIsMobileNumberValid(mobileRegex.test(e.target.value))
+    }
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value)
+        setIsEmailValid(emailRegex.test(e.target.value))
     }
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +59,18 @@ const SignUpPage = () => {
                         </div>
                         <div className="mb-4">
                             <label htmlFor="email" className="block mb-2">Email:</label>
-                            <input type="text" id="email" className="w-full p-2 border rounded" required />
+                            <input
+                                type="text"
+                                id="email"
+                                value={email}
+                                onChange={handleEmailChange}
+                                className="w-full p-2 border rounded"
+                                required />
+                            {!email || !isEmailValid && (
+                                <p className="text-sm text-gray-600 mt-1">
+                                    Please enter a valid email ID.
+                                </p>
+                            )}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="mobile" className="block mb-2">Mobile:</label>
@@ -87,7 +113,7 @@ const SignUpPage = () => {
                         <button
                             type="submit"
                             className={`w-full ${password && isPasswordValid && confirmPassword && passwordsMatch ? 'transition ease-in-out delay-150 bg-gray-500 bg-primary duration-300' : 'bg-gray-600'} text-white p-2 rounded`}
-                            disabled={!isMobileNumberValid || !password || !isPasswordValid || !confirmPassword || !passwordsMatch}
+                            disabled={!isMobileNumberValid || !isEmailValid || !password || !isPasswordValid || !confirmPassword || !passwordsMatch}
                         >Login</button>
                     </form>
                     <p className="mt-4 text-center">
